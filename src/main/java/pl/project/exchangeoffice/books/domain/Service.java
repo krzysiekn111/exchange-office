@@ -11,7 +11,7 @@ import java.net.http.HttpResponse;
 
 @Component
 public class Service {
-    public void getConnection(String currencyURL) throws Exception {
+    public Float getConnection(String currencyURL) throws Exception {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://api.nbp.pl/api/exchangerates/rates/a/" + currencyURL+ "/"))
@@ -23,8 +23,6 @@ public class Service {
         String[] sc = s[0].split("\"mid\":");
         Float exchangeRate = Float.valueOf(sc[1]);
         System.out.println(exchangeRate);
-
-
-
+        return exchangeRate;
     }
 }

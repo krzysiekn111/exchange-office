@@ -2,7 +2,6 @@ package pl.project.exchangeoffice.books;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
@@ -23,7 +22,7 @@ public class MainView extends VerticalLayout {
     private Service service;
 
 
-    public MainView() {
+    public MainView() throws Exception {
         Button button = new Button("Waluty");
         button.addClickListener(e -> {
             try {
