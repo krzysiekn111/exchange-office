@@ -14,43 +14,41 @@ import java.util.List;
 
 @Component
 public class Service {
-    public Float getConnection(String currencyURL) throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://api.nbp.pl/api/exchangerates/rates/a/" + currencyURL+ "/"))
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        String jsonObject1 = new JSONObject(response.body()).toString();
-        String[] s = jsonObject1.split(",\"effectiveDate");
-        String[] sc = s[0].split("\"mid\":");
-        Float exchangeRate = Float.valueOf(sc[1]);
-        System.out.println(exchangeRate);
-        return exchangeRate;
-    }
 
     @Scheduled(fixedRate = 5000)
     private void use() throws IOException, InterruptedException {
-        getExchangeRates(1);
+        getCurrencyValue("chf", 4);
     }
 
-    public void getExchangeRates( int id) throws IOException, InterruptedException {
+    public String getConnection() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8090/v1/office/rates"))
                 .build();
 
-
-        int augmentedId = id + 1;
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//        String  jsonObject1 = new JSONObject(response.body()).toString();
-
-        String[] s = response.body().split("\"currencyId\":" + id + ",\"exchangeRateToPLN\":");
-        String[] sc = s[1].split("}");
-//        Float exchangeRate = Float.valueOf(sc[1]);
-
-        System.out.println(response.body());
-        System.out.println(sc[0]);
+        return client.send(request, HttpResponse.BodyHandlers.ofString()).body();
     }
+
+    public void getCurrencyValue(String currency, int id) throws IOException, InterruptedException {
+        String response = getConnection();
+        String[] s = response.split("\"currencyId\":" + id + ",\"exchangeRateToPLN\":");
+        String[] sc = s[1].split(",");
+        System.out.println(sc[0]);
+        System.out.println(response);
+        String[] scv = sc[1].split(",\"currencyName\":");
+        String scvb = scv[0].split("}")[0];
+
+//        Rates rate = getRate();
+        Rates rates = new Rates(
+                scvb,
+                Float.valueOf(sc[0])
+        );
+        System.out.println(rates);
+    }
+
+//    private Rates getRate() {
+//        return
+//    }
+
+
 }

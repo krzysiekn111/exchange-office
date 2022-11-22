@@ -24,13 +24,13 @@ public class MainView extends VerticalLayout {
 
     public MainView() throws Exception {
         Button button = new Button("Waluty");
-        button.addClickListener(e -> {
-            try {
-                service.getConnection("usd");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        });
+//        button.addClickListener(e -> {
+//            try {
+//                service.getConnection("usd");
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//            }
+//        });
         grid.setColumns("title", "author", "publicationYear", "type");
         add(grid);
         setSizeFull();
