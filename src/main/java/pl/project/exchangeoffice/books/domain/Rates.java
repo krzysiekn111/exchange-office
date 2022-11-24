@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Rates {
 
+    private String currency;
+    private Float exchangeRateToPLN;
+
     public Rates(String currency, Float exchangeRateToPLN) {
         this.currency = currency;
         this.exchangeRateToPLN = exchangeRateToPLN;
@@ -22,9 +25,6 @@ public class Rates {
                 ", exchangeRateToPLN=" + exchangeRateToPLN +
                 '}';
     }
-
-    private String currency;
-    private Float exchangeRateToPLN;
 
 
 //    @Scheduled(fixedRate = 5000)

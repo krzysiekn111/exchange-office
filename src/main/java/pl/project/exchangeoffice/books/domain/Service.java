@@ -29,21 +29,21 @@ public class Service {
         return client.send(request, HttpResponse.BodyHandlers.ofString()).body();
     }
 
-    public void getCurrencyValue(String currency, int id) throws IOException, InterruptedException {
+    public Rates getCurrencyValue(String currency, int id) throws IOException, InterruptedException {
         String response = getConnection();
         String[] s = response.split("\"currencyId\":" + id + ",\"exchangeRateToPLN\":");
         String[] sc = s[1].split(",");
-        System.out.println(sc[0]);
-        System.out.println(response);
+//        System.out.println(sc[0]);
+//        System.out.println(response);
         String[] scv = sc[1].split(",\"currencyName\":");
         String scvb = scv[0].split("}")[0];
 
-//        Rates rate = getRate();
         Rates rates = new Rates(
                 scvb,
                 Float.valueOf(sc[0])
         );
-        System.out.println(rates);
+//        System.out.println(rates);
+        return rates;
     }
 
 //    private Rates getRate() {
