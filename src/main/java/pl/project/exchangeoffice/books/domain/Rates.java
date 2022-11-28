@@ -9,6 +9,8 @@ public class Rates {
     private String currency;
     private Float exchangeRateToPLN;
 
+    private static Rates rates;
+
     public Rates() {}
 
     public Rates(String currency, Float exchangeRateToPLN) {
