@@ -13,13 +13,13 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 @Route
 public class MainView extends VerticalLayout {
 
-    private Text text = new Text(isTheDayAHoliday().equals(true) ?
-            "DZISIAJ OBRÓT WALUTAMI JEST NIEDOSTĘPNY" : "DZISIAJ DZIEŃ ROBOCZY" );
+    private Text text = new Text(isTheDayAHoliday());
     private Grid<Rates> grid = new Grid<>(Rates.class);
     private RatesService ratesService = RatesService.getInstance();
 
@@ -35,7 +35,7 @@ public class MainView extends VerticalLayout {
     }
 
 
-    private Boolean isTheDayAHoliday() throws IOException, InterruptedException {
+    private String isTheDayAHoliday() throws IOException, InterruptedException {
         int year = LocalDate.now().getYear();
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -43,7 +43,13 @@ public class MainView extends VerticalLayout {
                 .build();
         String response = client.send(request, HttpResponse.BodyHandlers.ofString()).body();
         String today = LocalDate.now().toString();
-        return response.contains(today);
+        if (response.contains(today)) {
+            return "GIEŁDA ZAMKNIĘTA ZE WZGLĘDU NA ŚWIĘTO PAŃSTWOWE";
+        } else if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.SUNDAY)
+                || LocalDate.now().getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
+            return "W WEEKENDY GIEŁDA JEST ZAMKNIĘTA";
+        }
+        return "GIEŁDA JEST DZIŚ OTWARTA";
 
     }
 }
