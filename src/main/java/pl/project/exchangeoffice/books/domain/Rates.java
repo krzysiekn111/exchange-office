@@ -25,11 +25,4 @@ public class Rates {
                 ", exchangeRateToPLN=" + exchangeRateToPLN +
                 '}';
     }
-
-
-//    @Scheduled(fixedRate = 5000)
-//    public void count() {
-//        System.out.println(56);
-//    }
-
 }

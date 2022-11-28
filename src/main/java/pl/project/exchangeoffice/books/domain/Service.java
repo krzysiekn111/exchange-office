@@ -42,13 +42,9 @@ public class Service {
                 scvb,
                 Float.valueOf(sc[0])
         );
-//        System.out.println(rates);
         return rates;
     }
 
-//    private Rates getRate() {
-//        return
-//    }
 
 
 }
