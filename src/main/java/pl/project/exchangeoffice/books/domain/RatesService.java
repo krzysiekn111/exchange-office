@@ -13,7 +13,6 @@ import java.util.List;
 
 public class RatesService {
 
-//    private MainView mainView = new MainView();
     private static RatesService ratesService;
     private List<Rates> rates;
 
@@ -54,7 +53,6 @@ public class RatesService {
 
     public Rates getCurrencyValue(int id) throws IOException, InterruptedException {
         String response = getConnection();
-        System.out.println(response + "response");
         String[] s = response.split("\"currencyId\":" + id + ",\"exchangeRateToPLN\":");
         String[] sc = s[1].split(",");
         String[] scv = sc[1].split("\"currencyName\":\"");
