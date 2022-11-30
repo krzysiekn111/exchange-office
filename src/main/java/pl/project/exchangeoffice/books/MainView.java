@@ -16,7 +16,7 @@ import java.net.http.HttpResponse;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
-@Route
+@Route("application")
 public class MainView extends VerticalLayout {
 
     private Text text = new Text(isTheDayAHoliday());
